@@ -1,0 +1,46 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE project>
+	
+<project name="sliver" basedir=".." >
+	
+	<!--
+		Sliver is designed for Serlvet 3.0,
+		for example, as provided by Tomcat 7.0.
+		
+		Define TOMCAT_HOME var to run this script.
+	-->
+	<property environment="env"/>
+	<property name="tomcat.home" value="${env.TOMCAT_HOME}"/>
+	
+	<path id="build.path">
+		<fileset dir="${tomcat.home}/lib" />
+	</path>
+	
+	<target name="build" depends="clean" >
+		
+		<javac
+			destdir="out/classes"
+			srcdir="src/main/java">
+			
+			<classpath refid="build.path" />
+			
+		</javac>
+		
+		<war destfile="out/sliver.war"
+			needxmlfile='false'>
+			
+			<classes dir="out/classes" />
+			
+		</war>
+		
+				
+	</target>
+	
+	
+	<target name="clean">
+		<delete dir="out" />
+		<mkdir dir="out/classes" />
+	</target>
+	
+	
+</project>
